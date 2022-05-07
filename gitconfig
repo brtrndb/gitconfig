@@ -1,0 +1,124 @@
+[user]
+	name = Bertrand B.
+	email = boyer.bertrand@gmail.com
+[core]
+	editor = emacs
+	pager = most
+
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+	advice = auto
+	grep = auto
+	pager = true
+
+[column]
+	# https://git-scm.com/docs/git-config#Documentation/git-config.txt-columnui
+#	ui = never
+#	branch = never
+#	status = never
+#	tag = never
+
+[format]
+#	pretty =
+
+[branch]
+	sort = refname
+
+[commit]
+	verbose = true
+	gpgSign = true
+
+[diff]
+	mnemonicPrefix = true
+
+[fetch]
+	prune = true
+	output = full # full/compact
+
+[grep]
+	lineNumber = true
+
+[log]
+	abbrevCommit = true
+	date = relative
+	decorate = auto
+
+[merge]
+#	ff = true
+
+[push]
+	default = upstream
+
+[rebase]
+	autoStash = true
+
+[status]
+	showUntrackedFiles = all
+	showStash = true
+
+[tag]
+	sort = version:refname
+
+[alias]
+	# Base commands.
+	## add.
+	a = add -v
+	## branch.
+	b = branch -vv
+	branches = b -a
+	## checkout.
+	co = checkout
+	cob = checkout -b
+	## clone.
+	cl = clone -v
+	## commit.
+	c = commit -v
+	uncommit = reset --soft HEAD~1
+	## diff
+	d = diff --ignore-space-at-eol
+	## fetch.
+	f = fetch -v --all --tags --prune
+	## init.
+	i = !git init && git commit -v --allow-empty -m 'Init repo with an empty commit.'
+	## log.
+	l = log --graph --date=relative --decorate=short --pretty=tformat:'%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %<|(150,trunc)%s %C(blue)%<(25,trunc)%an%C(reset)  %C(green)%cs (%ad)%C(reset)'
+	## merge
+	m = merge -v
+	mm = m --no-edit --no-ff
+	## push.
+	pu = push -v
+	puf = push -v -f
+	## pull.
+	p = pull -v
+	## rebase
+	r = rebase --stat
+	## stash.
+	stashes = stash list
+	save = stash save --include-untracked
+	pop = stash pop
+	## status.
+	s = status -v --show-stash --ahead-behind
+	## tag
+	t = tag
+	tags = t -l
+	# Custom commands.
+	aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
+	tags-details = "!git for-each-ref refs/tags/$TAG --shell --format='TAG=%(refname)\nCOMMIT=%(objectname)\nTAGGER=%(tagger)\nEMAIL=%(taggeremail)\nDATE=%(taggerdate)\nCONTENTS=%(contents)'"
+	update-tags-date = "!git tag -l | while read -r tag ; do COMMIT_HASH=$(git rev-list -1 $tag) && GIT_COMMITTER_DATE="$(git show $COMMIT_HASH --format=%aD | head -1)" && git tag -a -f $tag -m "$tag" $COMMIT_HASH ; done && git puf --tags"
+	pull-master = !"CURRENT=$(git branch --show-current) && DO_STASH=$(git status -u --porcelain) && if [ ! -z \"$DO_STASH\" ]; then git stash --include-untracked; fi && git co master && git p && git co $CURRENT && if [ ! -z \"$DO_STASH\" ]; then git stash pop; fi"
+	rebase-master = "!CURRENT=$(git branch --show-current) && DO_STASH=$(git status -u --porcelain) && if [ ! -z \"$DO_STASH\" ]; then git stash --include-untracked; fi && git co master && git p && git co $CURRENT && git r master && if [ ! -z \"$DO_STASH\" ]; then git stash pop; fi"
+	pu-m = pull-master
+	r-m = rebase-master
+	master = co master
+	sign = "!GIT_EDITOR=true git rebase --exec 'git commit --amend --no-edit -n -S' -i"
+
+[diff "pdf"]
+    textconv = pdfinfo
+    binary = true
+
+[diff "hex"]
+    textconv = hexdump -v -C
+    binary = true
