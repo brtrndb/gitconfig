@@ -72,12 +72,15 @@
 	## checkout.
 	co = checkout
 	cob = checkout -b
+    dev = checkout dev
+    develop = checkout develop
+    main = checkout main
+    master = checkout master
 	## clone.
 	cl = clone -v
 	## commit.
 	c = commit -v
-	uncommit = reset --soft HEAD~1
-	## diff
+	## diff.
 	d = diff --ignore-space-at-eol
 	## fetch.
 	f = fetch -v --all --tags --prune
@@ -85,16 +88,18 @@
 	i = !git init && git commit -v --allow-empty -m 'Init repo with an empty commit.'
 	## log.
 	l = log --graph --date=relative --decorate=short --pretty=tformat:'%C(yellow)%h%C(reset)%C(auto)%d%C(reset) %<|(150,trunc)%s %C(blue)%<(25,trunc)%an%C(reset)  %C(green)%cs (%ad)%C(reset)'
-	## merge
+	## merge.
 	m = merge -v
-	mm = m --no-edit --no-ff
+	mm = merge --no-edit --no-ff
 	## push.
 	pu = push -v
 	puf = push -v -f
 	## pull.
 	p = pull -v
-	## rebase
+	## rebase.
 	r = rebase --stat
+	## reset.
+	uncommit = reset --soft HEAD~1
 	## stash.
 	stashes = stash list
 	save = stash save --include-untracked
@@ -103,7 +108,7 @@
 	s = status -v --show-stash --ahead-behind
 	## tag
 	t = tag
-	tags = t -l
+	tags = tag -l
 	# Custom commands.
 	aliases = !git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'
 	tags-details = "!git for-each-ref refs/tags/$TAG --shell --format='TAG=%(refname)\nCOMMIT=%(objectname)\nTAGGER=%(tagger)\nEMAIL=%(taggeremail)\nDATE=%(taggerdate)\nCONTENTS=%(contents)'"
