@@ -98,6 +98,9 @@
 	p = pull -v
 	## rebase.
 	r = rebase --stat
+	## remote.
+	add-origin = remote add origin
+	del-origin = remote remove origin
 	## reset.
 	uncommit = reset --soft HEAD~1
 	## stash.
