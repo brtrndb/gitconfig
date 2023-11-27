@@ -80,6 +80,7 @@
 	cl = clone -v
 	## commit.
 	c = commit -v
+	empty = commit --allow-empty
 	## diff.
 	d = diff --ignore-space-at-eol
 	## fetch.
