@@ -24,6 +24,9 @@
 [format]
 #	pretty =
 
+[init]
+    defaultBranch = master
+
 [branch]
 	sort = refname
 
