@@ -1,6 +1,7 @@
 [user]
 	name = Bertrand B.
 	email = boyer.bertrand@gmail.com
+
 [core]
 	editor = emacs
 	pager = most
